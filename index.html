@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <title>Shopping Cart</title>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="css/bootstrap.min.css">
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet" />
+   <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+   <section>
+      <div class="container">
+         <div class="cart">
+            <div class="col-md-12 col-lg-10 mx-auto">
+               <div class="cart-item">
+                  <div class="row">
+                     <div class="col-md-7 center-item">
+                        <img src="images/product-1.png" alt="">
+                        <h5>iPhone 11 128GB Black</h5>
+                     </div>
+
+                     <div class="col-md-5 center-item">
+                        <div class="input-group number-spinner">
+                           <button class="btn btn-default" id="minusBtn"><i class="fas fa-minus"></i></button>
+                           <input type="text" class="form-control text-center" id="iphone11-128GB-input" value="1">
+                           <button class="btn btn-default" id="plusBtn"><i class="fas fa-plus"></i></button>
+                        </div>
+                        <h5 id="iphone11-128GB-price">$ <span>1219</span> </h5>
+                        <img src="images/remove.png" alt="" class="remove-item">
+                     </div>
+                  </div>
+               </div>
+
+               <div class="cart-item">
+                  <div class="row">
+                     <div class="col-md-7 center-item mx-auto">
+                        <img src="images/product-2.png" alt="">
+                        <h5>iPhone 11 Silicone Case - Black</h5>
+                     </div>
+                     <div class="col-md-5 center-item">
+                        <div class="input-group number-spinner">
+                           <button class="btn btn-default" id="secondMinusBtn"><i class="fas fa-minus"></i></button>
+                           <input type="text" class="form-control text-center" id="iPhone-11-Silicone" value="1">
+                           <button class="btn btn-default" id="secondPlusBtn"><i class="fas fa-plus "></i></button>
+
+                        </div>
+                        <h5 id="iPhone-11-Silicone-price">$ <span>59</span> </h5>
+                        <img src="images/remove.png" alt="" class="remove-item">
+                     </div>
+                  </div>
+               </div>
+
+               <div class="cart-item">
+                  <div class="row">
+
+                     <div class="col-md-8">
+                        <h5>Subtotal: </h5>
+                        <h5>Tax:</h5>
+                        <h5>Total:</h5>
+                     </div>
+
+                     <div class="col-md-4 status">
+                        <h5 id="subTotal">$ <span> 1,278</span></h5>
+                        <h5 id="Tax">$ <span> 0</span></h5>
+                        <h5 id="Total">$ <span> 1,278</span></h5>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-md-12 pt-4 pb-4">
+                  <button type="button" class="btn btn-success check-out">Check Out</button>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+   <script>
+      // document.getElementById('plusBtn').addEventListener('click', function (event) {
+      //    const iphone11_128GB_input = document.getElementById('iphone11-128GB-input').value
+      //    const iphone11_128GB_number = parseFloat(iphone11_128GB_input)
+      //    const total_iphone11_128GB_number = document.getElementById('iphone11-128GB-input').value = iphone11_128GB_number + 1;
+      //    total_iphone11_128GB_number;
+      // const iphone11_128GB_price = document.querySelector('#iphone11-128GB-price span').innerText;
+      // console.log(iphone11_128GB_price)
+      // const iphone11_128GB_price_number = parseFloat(iphone11_128GB_price);
+      // document.querySelector('#iphone11-128GB-price span').innerText = 1219 * total_iphone11_128GB_number
+      onBtnClick('plusBtn', 'iphone11-128GB-input', '#iphone11-128GB-price', 1219, 'plus', 'gon');
+      onBtnClick('minusBtn', 'iphone11-128GB-input', '#iphone11-128GB-price', 1219, 'minus', 'bag');
+      onBtnClick('secondPlusBtn', 'iPhone-11-Silicone', '#iPhone-11-Silicone-price', 59, 'plus', 'gon')
+      onBtnClick('secondMinusBtn', 'iPhone-11-Silicone', '#iPhone-11-Silicone-price', 59, 'minus', 'bag')
+      function onBtnClick(id, input_id, total_price_id, phone_price, symbol, gonbag) {
+         document.getElementById(id).addEventListener('click', function (event) {
+            const iphone11_input = document.getElementById(input_id).value;
+            const iphone11_number = parseFloat(iphone11_input);
+            const totalPrice = document.querySelector(`${total_price_id} span`).innerText;
+            const total_iphone11_number = document.getElementById(input_id).value = addRemove(symbol);
+            if (document.getElementById(input_id).value <= 0) {
+               document.querySelector(`${total_price_id} span`).innerText = 0
+               document.getElementById(input_id).value = 0
+               console.log(12)
+            }
+            else {
+               total_iphone11_number;
+               document.querySelector(`${total_price_id} span`).innerText = multiflyReduce(gonbag)
+            }
+            const subTotal = document.querySelector('#subTotal span').innerText = parseFloat(document.querySelector('#iphone11-128GB-price span').innerText) + parseFloat(document.querySelector('#iPhone-11-Silicone-price span').innerText)
+            subTotal
+            document.querySelector('#Total span').innerText = parseFloat(document.querySelector('#Tax span').innerText) + subTotal
+            function addRemove(symbol) {
+               if (symbol == 'plus') {
+                  return iphone11_number + 1
+               } else if (symbol == 'minus') {
+                  return iphone11_number - 1
+               }
+            }
+            function multiflyReduce(gonbag) {
+               if (gonbag == 'gon') {
+                  return phone_price * total_iphone11_number
+               } else if (gonbag == 'bag') {
+                  return totalPrice - phone_price
+               }
+            }
+         })
+      }
+   </script>
+</body>
+
+</html>
